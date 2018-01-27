@@ -4,7 +4,6 @@
 <%@page import="com.day.cq.wcm.foundation.forms.FormsHelper"%>
 <%@page import="com.day.cq.wcm.foundation.forms.FormsConstants"%>
 <%@ page import="com.day.cq.wcm.api.WCMMode" %>
-<%@taglib prefix="dpcommon" uri="http://www.nni.com/taglibs/dpcommon/1.0" %>
 <%-- <%@taglib prefix="slingn" uri="http://sling.apache.org/taglibs/sling" %> --%>
 <%
 // Add Page Component specific include code
