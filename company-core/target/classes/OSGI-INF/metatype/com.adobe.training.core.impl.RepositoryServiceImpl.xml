@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0" localization="OSGI-INF/metatype/com.adobe.training.core.impl.RepositoryServiceImpl">
+    <OCD id="com.adobe.training.core.impl.RepositoryServiceImpl" name="%com.adobe.training.core.impl.RepositoryServiceImpl.name" description="%com.adobe.training.core.impl.RepositoryServiceImpl.description"/>
+    <Designate pid="com.adobe.training.core.impl.RepositoryServiceImpl">
+        <Object ocdref="com.adobe.training.core.impl.RepositoryServiceImpl"/>
+    </Designate>
+</metatype:MetaData>
