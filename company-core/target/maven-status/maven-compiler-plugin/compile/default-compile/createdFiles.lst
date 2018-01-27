@@ -1,6 +1,1 @@
-com/adobe/training/core/StockAlertProcess.class
-com/adobe/training/core/RepositoryService.class
-com/adobe/training/core/StockDataImporter.class
-com/adobe/training/core/impl/RepositoryServiceImpl.class
-com/adobe/training/core/TitlePropertyListener.class
 com/adobe/training/core/Activator.class
