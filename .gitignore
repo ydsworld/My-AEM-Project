@@ -1,3 +1,31 @@
-.idea
+bin/*.user
+bin/*.log
+target/*
+*/target/*
+*/*/target/*
+*/*/*/target/*
+
+# Generate Web Services
+/**/src/generated/
+**/**/src/generated/
+
+#cq5
+.vlt
+# Vault Directories
+*.dir/
+**/*.dir
+
+.classpath
+.settings
+.project
+.metadata
+.idea*
 *.iml
+*.swp
+*.bak
+*.orig
+*.log
 .DS_Store
+.vlt
+.gitignore
+
