@@ -6,4 +6,4 @@
     sling:resourceSuperType="foundation/components/parbase"
     allowedParents="[*/parsys]"
     autoHeight="true"
-    componentGroup="Diabetes Patient Common"/>
+    componentGroup="Company's Common Components"/>
