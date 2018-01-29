@@ -4,7 +4,7 @@
 <%@page import="com.day.cq.wcm.foundation.forms.FormsHelper"%>
 <%@page import="com.day.cq.wcm.foundation.forms.FormsConstants"%>
 <%@ page import="com.day.cq.wcm.api.WCMMode" %>
-<%-- <%@taglib prefix="slingn" uri="http://sling.apache.org/taglibs/sling" %> --%>
+<%@taglib prefix="slingn" uri="http://sling.apache.org/taglibs/sling"%>
 <%
 // Add Page Component specific include code
 String suffix = slingRequest.getRequestPathInfo().getSuffix();
