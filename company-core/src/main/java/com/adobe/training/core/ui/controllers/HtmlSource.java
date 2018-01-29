@@ -2,6 +2,7 @@ package com.adobe.training.core.ui.controllers;
 
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.resource.Resource;
+import org.apache.sling.api.resource.ValueMap;
 import org.apache.sling.models.annotations.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,12 +21,15 @@ public class HtmlSource {
     private String htmlSource;
 
     @Inject
-    Resource resource;
+    private Resource resource;
 
     @PostConstruct
-    protected void init(){
-        LOGGER.info("Here xxxxxxxx");
-        htmlSource = "tetst";
+    protected void init() {
+
+        LOGGER.info("HTML Source Model - initialized");
+
+        ValueMap properties = resource.adaptTo(ValueMap.class);
+        htmlSource = properties.get("htmlsource", String.class);
     }
 
     public String getHtmlSource() {

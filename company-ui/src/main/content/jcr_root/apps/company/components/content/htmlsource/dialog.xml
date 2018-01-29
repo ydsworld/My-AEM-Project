@@ -15,7 +15,7 @@
                     fieldDescription="Used to author small snippets of custom HTML and/or JavaScript"
                     fieldLabel="Source"
                     height="200"
-                    name="./source"
+                    name="./htmlsource"
                     xtype="textarea"/>
             </items>
         </tab1>

@@ -29,6 +29,10 @@
                         <Embed-Transitive>true</Embed-Transitive>
                         <Import-Package>!org.slf4j.impl,
                             javax.annotation;version="(0.0,2)",
+                            javax.inject;version="[0.0,2]",
+                            org.apache.sling.models.annotations;version="(1.0,2)",
+                            org.apache.sling.models.annotations.injectorspecific;version="(1.0,2)",
+                            org.apache.sling.models.spi;version="(1.0,2)",
                             *;resolution:=optional
                         </Import-Package>
                         <Export-Package>
