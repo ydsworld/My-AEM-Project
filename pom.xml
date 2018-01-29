@@ -1,271 +1,364 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- |  Copyright 2016 Adobe Systems Incorporated
- |
- |  Licensed under the Apache License, Version 2.0 (the "License");
- |  you may not use this file except in compliance with the License.
- |  You may obtain a copy of the License at
- |
- |      http://www.apache.org/licenses/LICENSE-2.0
- |
- |  Unless required by applicable law or agreed to in writing, software
- |  distributed under the License is distributed on an "AS IS" BASIS,
- |  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- |  See the License for the specific language governing permissions and
- |  limitations under the License.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.adobe.training</groupId>
-  <artifactId>parent</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <properties>
-		<company.name>Training Portal</company.name>
-		<aem.host>localhost</aem.host>
-		<aem.port>4502</aem.port>
-		<aem.user>admin</aem.user>
-		<aem.password>admin</aem.password>
-		<module.prefix>company</module.prefix>
-	</properties>
-  	<packaging>pom</packaging>
-  	<name>Company Portal</name>
-	<modules>
-		<module>company-core</module>
-		<module>company-ui</module>
-  	</modules>
-  	<build>
-		<pluginManagement>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.adobe.training</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <properties>
+        <company.name>Training Portal</company.name>
+        <aem.host>localhost</aem.host>
+        <aem.port>4502</aem.port>
+        <aem.user>admin</aem.user>
+        <aem.password>admin</aem.password>
+        <module.prefix>company</module.prefix>
+    </properties>
+    <packaging>pom</packaging>
+    <name>Company Portal</name>
+    <modules>
+        <module>company-core</module>
+        <module>company-ui</module>
+    </modules>
+    <build>
+        <pluginManagement>
             <plugins>
-            	<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5.1</version>
-					<configuration>
-						<scmCommentPrefix>[maven-scm] :</scmCommentPrefix>
-						<preparationGoals>clean install</preparationGoals>
-						<goals>install</goals>
-						<releaseProfiles>release</releaseProfiles>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
-						<encoding>UTF-8</encoding>
-					</configuration>
-				</plugin>
-            	<plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.1</version>
+                    <configuration>
+                        <scmCommentPrefix>[maven-scm] :</scmCommentPrefix>
+                        <preparationGoals>clean install</preparationGoals>
+                        <goals>install</goals>
+                        <releaseProfiles>release</releaseProfiles>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>3.0.1</version>
                     <extensions>true</extensions>
                 </plugin>
                 <!-- Declare Sling plugin with all properties to be used by all child modules (note these can be overwritten) -->
-	            <plugin>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>maven-scr-plugin</artifactId>
-					<version>1.20.0</version>
-					<executions>
-						<execution>
-							<id>generate-scr-scrdescriptor</id>
-							<goals>
-								<goal>scr</goal>
-							</goals>
-							<configuration>
-								<!-- Private service properties for all services. -->
-								<properties>
-									<service.vendor>Adobe</service.vendor>
-								</properties>
-							</configuration>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>org.slf4j</groupId>
-							<artifactId>slf4j-simple</artifactId>
-							<version>1.5.2</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-	            <plugin>
-					<groupId>org.apache.sling</groupId>
-					<artifactId>maven-sling-plugin</artifactId>
-					<version>2.1.0</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>install</goal>
-							</goals>
-						</execution>
-					</executions>
-					<configuration>
-						<slingUrl>http://${aem.host}:${aem.port}/crx/repository/crx.default</slingUrl>
-						<usePut>true</usePut>
-					</configuration>
-				</plugin>
-				<plugin>
-						<groupId>com.day.jcr.vault</groupId>
-						<artifactId>content-package-maven-plugin</artifactId>
-						<version>0.0.24</version>
-						<executions>
-						    <execution>
-						    	<id>package</id>
-						        <goals>
-						            <goal>package</goal>
-						            <goal>install</goal>
-					            </goals>
-								<configuration>
-						    		<targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
-						    	</configuration>
-						    </execution>
-						</executions>
-					</plugin>
-			</plugins>		
-		</pluginManagement>
-	</build>
-	<dependencyManagement>
-		<dependencies>
-			<!-- Project Dependencies -->
-				<dependency>
-					<groupId>${project.groupId}</groupId>
-					<artifactId>${module.prefix}-core</artifactId>
-					<version>${project.version}</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>${project.groupId}</groupId>
-					<artifactId>${module.prefix}-components</artifactId>
-					<version>${project.version}</version>
-					<scope>provided</scope>
-				</dependency>
-				<!-- AEM 6.1 Dependencies - Uber Jar with proprietary code included -->           
-            	<dependency>
-    				<groupId>com.adobe.aem</groupId>
-    				<artifactId>uber-jar</artifactId>
-    				<version>6.1.0</version>
-    				<scope>provided</scope>
-    				<classifier>obfuscated-apis</classifier>
-				</dependency>
-								<!-- servlet API -->
-				<dependency>
-					<groupId>javax.servlet</groupId>
-					<artifactId>servlet-api</artifactId>
-					<version>2.4</version>
-					<scope>provided</scope>
-				</dependency>
-						
-				<dependency>
-					<groupId>javax.servlet.jsp</groupId>
-					<artifactId>jsp-api</artifactId>
-					<version>2.1</version>
-					<scope>provided</scope>
-				</dependency>
-				
-				 <!-- JCR dependency -->
-					<dependency>
-    						<groupId>javax.jcr</groupId>
-    						<artifactId>jcr</artifactId>
-    						<version>2.0</version>
-						<scope>provided</scope>
-					</dependency>
-				
-				<dependency>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.scr</artifactId>
-					<version>1.8.2</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.scr.annotations</artifactId>
-					<version>1.9.6</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.osgi</groupId>
-					<artifactId>org.osgi.core</artifactId>
-					<version>4.2.0</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.osgi</groupId>
-					<artifactId>org.osgi.compendium</artifactId>
-					<version>4.2.0</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-					<version>1.7.6</version>
-					<scope>provided</scope>
-				</dependency>
-			
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-simple</artifactId>
-					<version>1.6.4</version>
-					<scope>provided</scope>
-				</dependency>
-			
-				<!-- Testing -->
-				<dependency>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-					<scope>test</scope>
-					<version>4.8.2</version>
-				</dependency>
-				<dependency>
-					<groupId>org.easymock</groupId>
-					<artifactId>easymock</artifactId>
-					<version>3.0</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.easymock</groupId>
-					<artifactId>easymockclassextension</artifactId>
-					<version>3.0</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.powermock</groupId>
-					<artifactId>powermock-module-junit4</artifactId>
-					<version>1.4.7</version>
-					<scope>test</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.powermock</groupId>
-					<artifactId>powermock-api-easymock</artifactId>
-					<version>1.4.7</version>
-					<scope>test</scope>
-				</dependency>
-			
-			<!-- AEM Advanced Dev Course Dependency updates -->
-			<!-- place your dependencies here -->
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-scr-plugin</artifactId>
+                    <version>1.20.0</version>
+                    <executions>
+                        <execution>
+                            <id>generate-scr-scrdescriptor</id>
+                            <goals>
+                                <goal>scr</goal>
+                            </goals>
+                            <configuration>
+                                <!-- Private service properties for all services. -->
+                                <properties>
+                                    <service.vendor>Adobe</service.vendor>
+                                </properties>
+                            </configuration>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.slf4j</groupId>
+                            <artifactId>slf4j-simple</artifactId>
+                            <version>1.5.2</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.sling</groupId>
+                    <artifactId>maven-sling-plugin</artifactId>
+                    <version>2.1.0</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>install</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <slingUrl>http://${aem.host}:${aem.port}/crx/repository/crx.default</slingUrl>
+                        <usePut>true</usePut>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>com.day.jcr.vault</groupId>
+                    <artifactId>content-package-maven-plugin</artifactId>
+                    <version>0.0.24</version>
+                    <executions>
+                        <execution>
+                            <id>package</id>
+                            <goals>
+                                <goal>package</goal>
+                                <goal>install</goal>
+                            </goals>
+                            <configuration>
+                                <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project Dependencies -->
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${module.prefix}-core</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${module.prefix}-components</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- AEM 6.1 Dependencies - Uber Jar with proprietary code included -->
+            <!-- OSGi Dependencies -->
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.scr</artifactId>
+                <version>1.6.3-R1409029</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.scr.annotations</artifactId>
+                <version>1.9.12</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.api</artifactId>
+                <version>2.9.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.core</artifactId>
+                <version>4.2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.compendium</artifactId>
+                <version>4.2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Logging Dependencies -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.5.11</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Apache Sling Dependencies -->
+            <dependency>
+                <groupId>com.day.cq.wcm</groupId>
+                <artifactId>cq-wcm-commons</artifactId>
+                <version>5.6.4</version> <!--5.6.4 vs 5.8.10-->
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.aem</groupId>
+                <artifactId>uber-jar</artifactId>
+                <version>6.1.0</version>
+                <classifier>obfuscated-apis</classifier>
+                <scope>provided</scope>
+            </dependency>
+            <!-- Servlet API -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <!-- JCR -->
+            <dependency>
+                <groupId>javax.jcr</groupId>
+                <artifactId>jcr</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
 
-			<!-- Junit Testing -->
-				<dependency> 
-					<groupId>org.apache.sling</groupId> 
-					<artifactId>org.apache.sling.junit.core</artifactId> 
-					<version>1.0.8</version> 
-					<scope>provided</scope>
-				</dependency>		
-				<dependency> 
-					<groupId>org.apache.sling</groupId> 
-					<artifactId>org.apache.sling.junit.remote</artifactId> 
-					<version>1.0.8</version> 
-					<scope>provided</scope>
-				</dependency>
-				<dependency> 
-					<groupId>org.apache.sling</groupId> 
-					<artifactId>org.apache.sling.junit.scriptable</artifactId> 
-					<version>1.0.8</version> 
-					<scope>provided</scope>
-				</dependency>
-		</dependencies>
-		</dependencyManagement>
-<repositories>
+
+            <!-- Integration Testing -->
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.junit.core</artifactId>
+                <version>1.0.8</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.junit.scriptable</artifactId>
+                <version>1.0.8</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.junit.remote</artifactId>
+                <version>1.0.8</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.testing.tools</artifactId>
+                <version>1.0.6</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.11</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--  Sling models -->
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.models.api</artifactId>
+                <version>1.2.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.models.impl</artifactId>
+                <version>1.2.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.geronimo.specs</groupId>
+                <artifactId>geronimo-atinject_1.0_spec</artifactId>
+                <version>1.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.adobe.acs</groupId>
+                <artifactId>acs-aem-commons-bundle</artifactId>
+                <version>1.9.6</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--Other depencies -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.10.8</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit-addons</groupId>
+                <artifactId>junit-addons</artifactId>
+                <version>1.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>biz.aQute</groupId>
+                <artifactId>bndlib</artifactId>
+                <version>1.50.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <!--start eclipse code completion -->
+            <dependency>
+                <groupId>com.day.cq.wcm</groupId>
+                <artifactId>cq-wcm-foundation</artifactId>
+                <version>5.6.4</version>   <!--works with  lastest version on the repo 5.6.5--> <!--5.7.8 -->
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.day.cq.wcm</groupId>
+                <artifactId>cq-wcm-taglib</artifactId>
+                <version>5.7.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.scripting.jsp.taglib</artifactId>
+                <version>2.2.4</version>
+                <scope>compile</scope>
+            </dependency>
+            <!--end  eclipse code completion -->
+            <!--Webservice -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <scope>provided</scope>
+                <!-- <version>1.7.1</version> -->
+                <version>2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.0.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.day.commons.osgi.wrapper</groupId>
+                <artifactId>com.day.commons.osgi.wrapper.commons-lang2</artifactId>
+                <version>2.5-0001</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.day.commons.osgi.wrapper</groupId>
+                <artifactId>com.day.commons.osgi.wrapper.commons-email</artifactId>
+                <version>1.2.0-0002</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sling</groupId>
+                <artifactId>org.apache.sling.scripting.jsp</artifactId>
+                <version>2.1.6</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.itextpdf</groupId>
+                <artifactId>itextpdf</artifactId>
+                <version>5.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>1.2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.day.cq</groupId>
+                <artifactId>cq-mailer</artifactId>
+                <version>5.5.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+    <repositories>
 
         <repository>
 
