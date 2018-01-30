@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0"
+    jcr:primaryType="cq:Dialog"
+    title="Demo"
+    xtype="dialog">
+    <items jcr:primaryType="cq:WidgetCollection">
+        <tab1
+            jcr:primaryType="cq:Widget"
+            anchor="100%"
+            title="Demo"
+            xtype="panel">
+            <items jcr:primaryType="cq:WidgetCollection">
+                <source
+                    jcr:primaryType="cq:Widget"
+                    fieldDescription="Used to author small snippets of custom HTML and/or JavaScript"
+                    fieldLabel="Source"
+                    height="200"
+                    name="./demo"
+                    xtype="textarea"/>
+            </items>
+        </tab1>
+    </items>
+</jcr:root>
